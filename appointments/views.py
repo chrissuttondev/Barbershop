@@ -19,7 +19,7 @@ def appointments(request):
                 request, messages.SUCCESS,
                 'Appointment made')
     else:
-        appointment_form =AppointmentForm()        
+        appointment_form = AppointmentForm()        
 
     
         return render(
