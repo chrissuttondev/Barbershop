@@ -1,0 +1,37 @@
+{% url 'home' as home_url %}
+{% url 'appointments' as appointments_url %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barnets fo Bougthon</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'home'}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'appointments'}">Appointments</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        <!--content goes here-->
+        {% endblock %}
+    </main>
+<footer>
+    <p>Footer Placeholder</p>
+</footer>
+
+</body>
+
+
+</html>

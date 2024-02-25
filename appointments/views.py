@@ -3,4 +3,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 def appointments(request):
-    return HttpResponse('booking')
+    return render(
+        request,
+        "appointments/appointments.html"
+        )
+
