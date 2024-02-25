@@ -3,6 +3,13 @@
 {% block content %}
 
 <!--Appointment content goes here-->
-<h1>book</h1>
+{% if user.is_authenticated %}
+<h3>Book your appoinment</h3>
+<p>Logged in as : {{ user.username}}</p>
+<form id="bookingform" method="post">
+    {{booking_form}}
+    {% csrf_token %}
+</form>
+{% endif %}
 
 {% endblock %}
