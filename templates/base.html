@@ -1,5 +1,9 @@
 {% url 'home' as home_url %}
 {% url 'appointments' as appointments_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +23,16 @@
                 <li>
                     <a href="{% url 'appointments' %}">Appointments</a>
                 </li>
+                <li>
+                    <a  href="{% url 'account_logout' %}">Logout</a>
+                </li>
+                <li>
+                    <a href="{% url 'account_signup' %}">Register</a>
+                </li>
+                <li>
+                    <a href="{% url 'account_login' %}">Login</a>
+                </li>
+
             </ul>
         </nav>
     </header>
