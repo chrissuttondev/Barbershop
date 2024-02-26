@@ -1,0 +1,10 @@
+Date widget
+https://www.geeksforgeeks.org/django-form-field-custom-widgets/
+
+https://stackoverflow.com/questions/3367091/whats-the-cleanest-simplest-to-get-running-datepicker-in-django
+
+booking app
+https://blog.devgenius.io/django-tutorial-on-how-to-create-a-booking-system-for-a-health-clinic-9b1920fc2b78
+
+restricting booking times
+https://stackoverflow.com/questions/65006860/booking-management-system-restriction-of-booking-times
