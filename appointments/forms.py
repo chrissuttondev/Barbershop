@@ -10,4 +10,4 @@ class AppointmentForm(forms.ModelForm):
         Model and fields
         """
         model = appointment_booking
-        fields = ( 'name', 'service', 'date', 'time', 'notes')
+        exclude = [ 'email', 'user']
