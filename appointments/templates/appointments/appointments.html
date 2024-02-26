@@ -2,8 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <!--Appointment content goes here-->
-<!-- {% if user.is_authenticated %} -->
-<!-- {% if user.is_authenticated %} -->
+{% if user.is_authenticated %}
 <h3>Book your appoinment</h3>
 <p>Signed in as : {{ user.username }}</p>
 <form id="appointmentForm" method="post">
@@ -12,9 +11,8 @@
     <button type="submit">Submit</button>
 </form>
 {% else %}
-<p>DEBIGGIN IS ELSE BLOCK BEING REACHED?</p>
 <p>Please <a href="{% url 'account_login' %}">sign in</a> or <a href="{% url 'account_signup' %}">register</a> to make and appointment</p>
 {% endif %}
-<!-- {% endif %} -->
+
 
 {% endblock %}
