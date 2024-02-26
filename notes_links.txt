@@ -1,7 +1,17 @@
 Date widget
 https://www.geeksforgeeks.org/django-form-field-custom-widgets/
-
+More on dates
 https://stackoverflow.com/questions/3367091/whats-the-cleanest-simplest-to-get-running-datepicker-in-django
+
+Django docs DateField
+https://docs.djangoproject.com/en/5.0/ref/models/fields/#django.db.models.DateField
+
+Using DateInput widget in forms
+https://www.letscodemore.com/blog/how-to-add-date-input-widget-in-django-forms/
+
+Working with dates and times in forms
+https://djangotricks.blogspot.com/2019/10/working-with-dates-and-times-in-forms.html
+https://forum.djangoproject.com/t/how-to-set-data-calendar-widget-for-datefield-and-datetimefield-with-format-day-month-year-dd-mm-yyyy/7243
 
 booking app
 https://blog.devgenius.io/django-tutorial-on-how-to-create-a-booking-system-for-a-health-clinic-9b1920fc2b78
