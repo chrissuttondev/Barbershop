@@ -50,8 +50,7 @@ class appointment_booking(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField()
     service = models.IntegerField(choices=SERVICE_OPTIONS, default=0)
-    date = models.DateField(default=date.today())
-    print(date)
+    date = models.DateField(default=timezone.now)
     time = models.CharField(choices=TIME_SLOTS, default="09:00", 
     help_text="Please select a time 1 hour from now") # Not ideal UX
     notes = models.TextField(blank=True)

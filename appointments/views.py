@@ -28,7 +28,8 @@ def appointments(request):
             messages.add_message(
                 request, messages.SUCCESS,
                 'Appointment made')
-            print(messages.add_message.SUCCESS)
+            print(messages.get_messages(request))
+    
             return redirect('appointments')
     else:
         appointment_form = AppointmentForm()  

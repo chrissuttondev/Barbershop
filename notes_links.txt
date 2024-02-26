@@ -18,3 +18,5 @@ https://blog.devgenius.io/django-tutorial-on-how-to-create-a-booking-system-for-
 
 restricting booking times
 https://stackoverflow.com/questions/65006860/booking-management-system-restriction-of-booking-times
+
+https://www.programiz.com/python-programming/datetime/current-datetime
