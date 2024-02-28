@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -37,30 +37,60 @@ def appointments(request):
         return render(
             request,
             "appointments/appointments.html",
-            {'appointment_form': appointment_form}
+            {'appointment_form': appointment_form, 'appointments': appointments}
         )
 
 
 def appointment_edit(request, appointment_id):
     appointment = get_object_or_404(appointment_booking, pk=appointment_id)
     if request.method == "POST":
-        if appointment.user == request.user.id:
+        print('method is post')
+        print(appointment.user)
+        print(request.user.id)
+        if appointment.user.id == request.user.id:
+            print('appointment user is request user')
             appointment_form = AppointmentForm(data=request.POST, instance=appointment)
             if appointment_form.is_valid():
+                print('form valid')
                 appointment_form.save()
-                messages.success('Appointment Updated')
-                return redirect('appointments')
+                print(appointment_form.save())
+                messages.add_message(
+                    request, messages.SUCCESS,
+                    'Appointment Updated')
+                return redirect(reverse('appointments_edit'))
             else:
                 messages.error('Error updating appointment!')
+
+
+    if request.user.is_authenticated and appointment.user == request.user:
+        appointment_form = AppointmentForm(instance=appointment)
+        return render(
+                    request, 
+                    "appointments/appointments_edit.html",
+                    {'appointment_form': appointment_form, 'appointments': appointments})
     else:
-       
-        if request.user.is_authenticated and appointment.user == request.user:
-            appointment_form = AppointmentForm(instance=appointment)
-            return render(
-                        request, 
-                        "appointments/appointments_edit.html", 
-                        {'appointment_form': appointment_form})
-        else:
-            return HttpResponse(
-                                "Not authorized to edit this appointment!", 
-                                status=403)
+        return HttpResponse(
+                            "Not authorized to edit this appointment!",
+                            status=403)
+
+# cancel
+def cancel_appointment(request, appointment_id):
+    appointment = get_object_or_404(appointment_booking, pk=appointment_id)
+    if request.method == "POST":
+        appointment_form = AppointmentForm(data=request.POST, instance=appointment)
+        messages.add_message(
+                    request, messages.SUCCESS,
+                    'Appointment Cancelled')
+        return redirect(reverse('appointments_cancel'))
+            
+    else:
+        messages.error('Error updating appointment!')
+
+
+    if request.user.is_authenticated and appointment.user == request.user:
+        appointment_form = AppointmentForm(instance=appointment)
+        return render(
+                    request, 
+                    "appointments/appointments_cancel.",
+                    )
+

@@ -2,35 +2,42 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <!--Appointment content goes here-->
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-        {{ message }}
+<div class="container"> 
+    {% if messages %} 
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <!--Edit Appointment-->
+    <ul>
+    {% for appointment in appointments %}
+    {% if user.is_authenticated and appointment.user == user%}
+    <li>
+    <a href="{% url 'appointments_edit' appointment.id %}">Edit {{ appointment.date }}, {{ appointment.time }}, {{ appointment.get_service_display }}</a>
     </li>
+    {% endif %}
     {% endfor %}
-</ul>
-{% endif %}
-{% if user.is_authenticated %}
-<h3>Book your appoinment</h3>
-<p>Signed in as : {{ user.username }}</p>
-<form id="appointmentForm" method="post">
-    {% csrf_token %}
-    {{ appointment_form | crispy }}
-    <button type="submit">Submit</button>
-</form>
-<!--Edit Appointment-->
-{% for appointment in appointments %}
-{% if user.is_authenticated and appointment.user == user%}
-<a href="{% url 'appointment_edit' appointment.id %}">Edit</a>
-{% endif %}
-{% endfor %} 
+    </ul>
+    {% if user.is_authenticated %}
+    <h3>Book your appoinment</h3>
+    <p>Signed in as : {{ user.username }}</p>
+    <form id="appointmentForm" method="post">
+        {% csrf_token %}
+        {{ appointment_form | crispy }}
+        <button type="submit">Submit</button>
+    </form>
 
-{% else %}
-<p>Please <a href="{% url 'account_login' %}">sign in</a> or <a href="{% url 'account_signup' %}">register</a> to make and appointment</p>
-{% endif %}
 
+    {% else %}
+    <p>Please <a href="{% url 'account_login' %}">sign in</a> or <a href="{% url 'account_signup' %}">register</a> to
+        make and appointment</p>
+    {% endif %}
+</div>
 
 
 {% endblock %}
