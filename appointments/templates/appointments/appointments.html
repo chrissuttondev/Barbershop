@@ -23,6 +23,10 @@
 {% else %}
 <p>Please <a href="{% url 'account_login' %}">sign in</a> or <a href="{% url 'account_signup' %}">register</a> to make and appointment</p>
 {% endif %}
+{% if user.is_authenticated and comment.author == user %}
+<button class="btn btn-edit"
+  appointment_id="{{ appointment.id }}">Edit</button>
+{% endif %}
 
 
 {% endblock %}

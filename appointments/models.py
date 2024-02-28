@@ -1,11 +1,9 @@
-import datetime
-from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django .forms import DateInput, TimeInput
 
-#Service Constant
+
+# Service Constant
 SERVICE_OPTIONS = (
     (0, "Cut and finish"),
     (1, "Short back and sides"),
@@ -21,7 +19,8 @@ SERVICE_OPTIONS = (
 
 )
 
-#Time Slot Constant
+
+# Time Slot Constant
 TIME_SLOTS = (
     ("09:00", "09:00"),
     ("09:30", "09:30"),
@@ -41,6 +40,7 @@ TIME_SLOTS = (
     ("16:30", "16:30"),
 )
 
+
 # Create your models here.
 class appointment_booking(models.Model):
     """
@@ -51,8 +51,7 @@ class appointment_booking(models.Model):
     email = models.EmailField()
     service = models.IntegerField(choices=SERVICE_OPTIONS, default=0)
     date = models.DateField(default=timezone.now)
-    time = models.CharField(choices=TIME_SLOTS, default="09:00", 
-    help_text="Please select a time 1 hour from now") # Not ideal UX
+    time = models.CharField(choices=TIME_SLOTS, default="09:00")
     notes = models.TextField(blank=True)
 
     def __str__(self):
