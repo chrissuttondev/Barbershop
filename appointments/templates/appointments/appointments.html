@@ -17,16 +17,20 @@
 <p>Signed in as : {{ user.username }}</p>
 <form id="appointmentForm" method="post">
     {% csrf_token %}
-    {{ appointment_form }}
+    {{ appointment_form | crispy }}
     <button type="submit">Submit</button>
 </form>
+<!--Edit Appointment-->
+{% for appointment in appointments %}
+{% if user.is_authenticated and appointment.user == user%}
+<a href="{% url 'appointment_edit' appointment.id %}">Edit</a>
+{% endif %}
+{% endfor %} 
+
 {% else %}
 <p>Please <a href="{% url 'account_login' %}">sign in</a> or <a href="{% url 'account_signup' %}">register</a> to make and appointment</p>
 {% endif %}
-{% if user.is_authenticated and comment.author == user %}
-<button class="btn btn-edit"
-  appointment_id="{{ appointment.id }}">Edit</button>
-{% endif %}
+
 
 
 {% endblock %}

@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -18,6 +17,7 @@ def get_success_url(self):
 
 # Create your views here.
 def appointments(request):
+    appointments = appointment_booking.objects.all()
     if request.method == 'POST':
         appointment_form = AppointmentForm(request.POST) 
         print(appointment_form)
@@ -42,16 +42,25 @@ def appointments(request):
 
 
 def appointment_edit(request, appointment_id):
+    appointment = get_object_or_404(appointment_booking, pk=appointment_id)
     if request.method == "POST":
-        appointment = get_object_or_404(appointment_booking, pk=appointment_id)
-        appointment_form = AppointmentForm(
-            data=request.POST, instance=appointment)
-        if appointment_form.is_valid() and appointment.user == request.user:
-            appointment = appointment_form.save(commit=False)
-            appointment.save()
-            messages.success(request, 'Appointment Updated!')
-        else:
-            messages.error(request, 'Error updating appointment!')
-        return HttpResponseRedirect(reverse('appointments'))
+        if appointment.user == request.user.id:
+            appointment_form = AppointmentForm(data=request.POST, instance=appointment)
+            if appointment_form.is_valid():
+                appointment_form.save()
+                messages.success('Appointment Updated')
+                return redirect('appointments')
+            else:
+                messages.error('Error updating appointment!')
     else:
-        return HttpResponse("Method not allowed", status=405)
+       
+        if request.user.is_authenticated and appointment.user == request.user:
+            appointment_form = AppointmentForm(instance=appointment)
+            return render(
+                        request, 
+                        "appointments/appointments_edit.html", 
+                        {'appointment_form': appointment_form})
+        else:
+            return HttpResponse(
+                                "Not authorized to edit this appointment!", 
+                                status=403)

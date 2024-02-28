@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<h3>Edit you appoinment</h3>
+<form id="appointmentForm" method="post">
+    {% csrf_token %}
+    {{ appointment_form | crispy }}
+    <button type="submit">Submit</button>
+</form>
