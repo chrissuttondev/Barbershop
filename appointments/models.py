@@ -55,4 +55,4 @@ class appointment_booking(models.Model):
     notes = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.user} | {self.name} | {self.email} | {self.service} | {self.time} | {self.notes}"
+        return f"{self.user} | {self.name} | {self.email} | {self.service} | {self.time} | {self.notes}" # noqa

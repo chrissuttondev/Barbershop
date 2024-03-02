@@ -1,8 +1,7 @@
-import datetime
 from datetime import date, timedelta
 from django import forms
-from django.utils import timezone
 from .models import appointment_booking
+
 
 class AppointmentForm(forms.ModelForm):
     """
@@ -19,6 +18,10 @@ class AppointmentForm(forms.ModelForm):
         tomorrow = presentday + timedelta(1)
         widgets = {
             'date': forms.DateInput(
-                attrs={'type': 'date', 'min': tomorrow, 'class': 'form-control'}
+                attrs={
+                        'type': 'date',
+                        'min': tomorrow,
+                        'class': 'form-control'
+                        }
             )
         }
