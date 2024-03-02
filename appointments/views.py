@@ -42,21 +42,21 @@ def appointments(request):
         )
 
 
+# Labeled edit but, functions as delete
+# def appointment_edit(request, appointment_id):
+#     appointment = get_object_or_404(appointment_booking, pk=appointment_id)
+#     appointment.delete()
+#     messages.add_message(request, messages.SUCCESS, 'Appointment Updated')
+#     return redirect(reverse('appointments'))
+
+
 def appointment_edit(request, appointment_id):
     appointment = get_object_or_404(appointment_booking, pk=appointment_id)
-    print("HELLO")
     if request.method == "POST":
-        print('method is post')
-        print("test")
-        print(appointment.user)
-        print(request.user.id)
         if appointment.user.id == request.user.id:
-            print('appointment user is request user')
             appointment_form = AppointmentForm(data=request.POST, instance=appointment) # noqa
             if appointment_form.is_valid():
-                print('form valid')
                 appointment_form.save()
-                print(appointment_form.save())
                 messages.add_message(
                     request, messages.SUCCESS,
                     'Appointment Updated')
@@ -77,16 +77,18 @@ def appointment_edit(request, appointment_id):
 
 
 # cancel
-def cancel_appointment(request, appointment_id):
-    print("CANCEL TEST 1")
-    appointment = get_object_or_404(appointment_booking, pk=appointment_id)
-    if request.method == "POST":
-        appointment_form = AppointmentForm(data=request.POST, instance=appointment) # noqa
-        print(appointment_form)
-        appointment_form.delete(appointment_form)
-        messages.add_message(
-                    request, messages.SUCCESS,
-                    'Appointment Cancelled')
+# def appointment_cancel(request, appointment_id):
+#     appointment = get_object_or_404(appointment_booking, pk=appointment_id)
+#     if request.method == "POST":
+#         if appointment.user.id == request.user.id:
+#             appointment_form = AppointmentForm(data=request.POST, instance=appointment) # noqa
+#             if appointment_form.is_valid():
+#                 appointment_form.delete()
+#                 messages.add_message(
+#                     request, messages.SUCCESS,
+#                     'Appointment Deleted')
+#                 return redirect(reverse('appointments'))
+
 #         return redirect(reverse('appointments_cancel')) # noqa
 #   # noqa  
 #     else:
