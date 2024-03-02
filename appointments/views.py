@@ -42,14 +42,15 @@ def appointments(request):
         )
 
 
-# Labeled edit but, functions as delete
-# def appointment_edit(request, appointment_id):
-#     appointment = get_object_or_404(appointment_booking, pk=appointment_id)
-#     appointment.delete()
-#     messages.add_message(request, messages.SUCCESS, 'Appointment Updated')
-#     return redirect(reverse('appointments'))
+# Cancel
+def appointment_cancel(request, appointment_id):
+    appointment = get_object_or_404(appointment_booking, pk=appointment_id)
+    appointment.delete()
+    messages.add_message(request, messages.SUCCESS, 'Appointment Cancelled')
+    return redirect(reverse('appointments'))
 
 
+# Edit
 def appointment_edit(request, appointment_id):
     appointment = get_object_or_404(appointment_booking, pk=appointment_id)
     if request.method == "POST":
@@ -74,31 +75,3 @@ def appointment_edit(request, appointment_id):
         return HttpResponse(
                             "Not authorized to edit this appointment!",
                             status=403)
-
-
-# cancel
-# def appointment_cancel(request, appointment_id):
-#     appointment = get_object_or_404(appointment_booking, pk=appointment_id)
-#     if request.method == "POST":
-#         if appointment.user.id == request.user.id:
-#             appointment_form = AppointmentForm(data=request.POST, instance=appointment) # noqa
-#             if appointment_form.is_valid():
-#                 appointment_form.delete()
-#                 messages.add_message(
-#                     request, messages.SUCCESS,
-#                     'Appointment Deleted')
-#                 return redirect(reverse('appointments'))
-
-#         return redirect(reverse('appointments_cancel')) # noqa
-#   # noqa  
-#     else:
-#         messages.error('Error updating appointment!')
-
-#     if request.user.is_authenticated and appointment.user == request.user:
-#         appointment_form = AppointmentForm(instance=appointment)
-#         return render(
-#                     request,
-#                     "appointments/appointments_cancel.html",
-#                     {'appointment_form': appointment_form,
-#                      'appointments': appointments}
-#                     )

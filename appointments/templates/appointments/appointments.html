@@ -18,7 +18,10 @@
     {% for appointment in appointments %}
     {% if user.is_authenticated and appointment.user == user%}
     <li>
-    <a href="{% url 'appointments_edit' appointment.id %}">Edit {{ appointment.date }}, {{ appointment.time }}, {{ appointment.get_service_display }}</a>
+        <h3>Appointment Details</h3>
+        <p>{{ appointment.date }}, {{ appointment.time }}, {{ appointment.get_service_display }}</p>    
+        <a href="{% url 'appointments_edit' appointment.id %}">Edit </a> &nbsp;
+        <a href="{% url 'appointments_cancel' appointment.id %}">Cancel</a>
     </li>
     {% endif %}
     {% endfor %}
